@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2020 Zano Project
+// Copyright (c) 2014-2020 beezy Project
 // Copyright (c) 2014-2018 The Louisdor Project
 // Copyright (c) 2012-2013 The Boolberry developers
 // Distributed under the MIT/X11 software license, see the accompanying
@@ -53,9 +53,9 @@ namespace currency
     pc.tx_default_fee = TX_DEFAULT_FEE;
     pc.max_alt_blocks = CURRENCY_ALT_BLOCK_MAX_COUNT;
     
-    pc.hard_fork_01_starts_after_height = ZANO_HARDFORK_01_AFTER_HEIGHT;
-    pc.hard_fork_02_starts_after_height = ZANO_HARDFORK_02_AFTER_HEIGHT;
-    pc.hard_fork_03_starts_after_height = ZANO_HARDFORK_03_AFTER_HEIGHT;
+    pc.hard_fork_01_starts_after_height = beezy_HARDFORK_01_AFTER_HEIGHT;
+    pc.hard_fork_02_starts_after_height = beezy_HARDFORK_02_AFTER_HEIGHT;
+    pc.hard_fork_03_starts_after_height = beezy_HARDFORK_03_AFTER_HEIGHT;
     
     pc.get_core_time = &core_runtime_config::_default_core_time_function;
     bool r = epee::string_tools::hex_to_pod(ALIAS_SHORT_NAMES_VALIDATION_PUB_KEY, pc.alias_validation_pubkey);

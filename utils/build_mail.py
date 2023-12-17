@@ -10,11 +10,11 @@ def getenv(e):
         exit(1)
     return t
 
-zs_from = getenv("ZANO_SMTP_FROM")
-zs_addr = getenv("ZANO_SMTP_ADDR")
-zs_port = getenv("ZANO_SMTP_PORT")
-zs_user = getenv("ZANO_SMTP_USER")
-zs_pass = getenv("ZANO_SMTP_PASS")
+zs_from = getenv("beezy_SMTP_FROM")
+zs_addr = getenv("beezy_SMTP_ADDR")
+zs_port = getenv("beezy_SMTP_PORT")
+zs_user = getenv("beezy_SMTP_USER")
+zs_pass = getenv("beezy_SMTP_PASS")
 
 if len(sys.argv) != 4:
     print("Usage: " + sys.argv[0] + " <subject> <recipient(s)> <body>")

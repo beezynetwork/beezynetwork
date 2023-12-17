@@ -10,13 +10,13 @@ function upload_build() # $1 - path to the file to be uploaded
   fi
 
   # check if the directory contains files
-  #if [ -n "$(ls -A "$ZANO_BLD_UPL_DIR" 2>/dev/null)" ]
+  #if [ -n "$(ls -A "$beezy_BLD_UPL_DIR" 2>/dev/null)" ]
   #then
   #  echo "ERROR: uploading folder contains files"
   #  return 1
   #fi
 
-  cd "$ZANO_BLD_UPL_DIR" || return 2
+  cd "$beezy_BLD_UPL_DIR" || return 2
   rm -rf ./* || return 3
   #popd || return 4
 

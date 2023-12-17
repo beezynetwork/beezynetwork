@@ -1,21 +1,21 @@
 ###########################################################################################
-## zanod Dockerfile
+## beezyd Dockerfile
 ###########################################################################################
 
 #
 # Usage:
-# (make sure you have correct permission for /var/data/zano-data prior to run!)
+# (make sure you have correct permission for /var/data/beezy-data prior to run!)
 #
-#   docker run --restart=always -v /var/data/zano-data:/home/zano/.Zano -p 11121:11121 -p 11211:11211 --name=zanod -dit sowle/zano-full-node
+#   docker run --restart=always -v /var/data/beezy-data:/home/beezy/.beezy -p 11121:11121 -p 11211:11211 --name=beezyd -dit sowle/beezy-full-node
 #
 # To get into container and interact with the daemon:
-#   docker attach zanod
+#   docker attach beezyd
 #
 # To detach from container and left it running:
 #   Ctrl+P, Ctrl+Q
 #
 # To stop container:
-#   docker stop zanod
+#   docker stop beezyd
 #
 # To build with different lib versions, pass through --build-arg's
 #   docker build --build-arg OPENSSL_VERSION_DOT=1.1.1n --build-arg OPENSSL_HASH=40dceb51a4f6a5275bde0e6bf20ef4b91bfc32ed57c0552e2e8e15463372b17a -f utils/docker/Dockerfile .
@@ -26,7 +26,7 @@
 #   - OpenSSL Version:  OPENSSL_VERSION_DOT, OPENSSL_HASH
 
 #
-# Build Zano
+# Build beezy
 #
 
 FROM ubuntu:18.04 as build-prep
@@ -107,39 +107,39 @@ RUN set -ex \
 
 FROM build-prep as build
 
-# Zano
+# beezy
 
 RUN pwd && mem_avail_gb=$(( $(getconf _AVPHYS_PAGES) * $(getconf PAGE_SIZE) / (1024 * 1024 * 1024) )) &&\
     make_job_slots=$(( $mem_avail_gb < 4 ? 1 : $mem_avail_gb / 4)) &&\
     echo make_job_slots=$make_job_slots &&\
     set -x &&\
-    git clone --single-branch --recursive https://github.com/hyle-team/zano.git &&\
-    cd zano &&\
+    git clone --single-branch --recursive https://github.com/beezynetwork/beezynetwork.git &&\
+    cd beezy &&\
     mkdir build && cd build &&\
     cmake -D STATIC=TRUE .. &&\
     make -j $make_job_slots daemon simplewallet
 
 
 #
-# Run Zano
+# Run beezy
 #
 
 FROM ubuntu:18.04
 
-RUN useradd -ms /bin/bash zano &&\
-    mkdir -p /home/zano/.Zano &&\
-    chown -R zano:zano /home/zano/.Zano
+RUN useradd -ms /bin/bash beezy &&\
+    mkdir -p /home/beezy/.beezy &&\
+    chown -R beezy:beezy /home/beezy/.beezy
 
-USER zano:zano
+USER beezy:beezy
 
-WORKDIR /home/zano
-COPY --chown=zano:zano --from=build /root/zano/build/src/zanod .
-COPY --chown=zano:zano --from=build /root/zano/build/src/simplewallet .
+WORKDIR /home/beezy
+COPY --chown=beezy:beezy --from=build /root/beezy/build/src/beezyd .
+COPY --chown=beezy:beezy --from=build /root/beezy/build/src/simplewallet .
 
 # blockchain loaction
-VOLUME /home/zano/.Zano
+VOLUME /home/beezy/.beezy
 
 EXPOSE 11121 11211
 
-ENTRYPOINT ["./zanod"]
+ENTRYPOINT ["./beezyd"]
 CMD ["--disable-upnp", "--rpc-bind-ip=0.0.0.0", "--log-level=0"]

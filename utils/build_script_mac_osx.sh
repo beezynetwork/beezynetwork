@@ -3,14 +3,14 @@ set +e # switch off exit on error
 curr_path=${BASH_SOURCE%/*}
 
 # check that all the required environment vars are set
-: "${ZANO_QT_PATH:?variable not set, see also macosx_build_config.command}"
-: "${ZANO_BOOST_ROOT:?variable not set, see also macosx_build_config.command}"
-: "${ZANO_BOOST_LIBS_PATH:?variable not set, see also macosx_build_config.command}"
-: "${ZANO_BUILD_DIR:?variable not set, see also macosx_build_config.command}"
+: "${beezy_QT_PATH:?variable not set, see also macosx_build_config.command}"
+: "${beezy_BOOST_ROOT:?variable not set, see also macosx_build_config.command}"
+: "${beezy_BOOST_LIBS_PATH:?variable not set, see also macosx_build_config.command}"
+: "${beezy_BUILD_DIR:?variable not set, see also macosx_build_config.command}"
 : "${CMAKE_OSX_SYSROOT:?CMAKE_OSX_SYSROOT should be set to macOS SDK path, e.g.: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk}"
 : "${OPENSSL_ROOT_DIR:?variable not set, see also macosx_build_config.command}"
 
-ARCHIVE_NAME_PREFIX=zano-macos-x64-
+ARCHIVE_NAME_PREFIX=beezy-macos-x64-
 
 if [ -n "$build_prefix" ]; then
   ARCHIVE_NAME_PREFIX=${ARCHIVE_NAME_PREFIX}${build_prefix}-
@@ -24,14 +24,14 @@ if [ "$testnet" == true ]; then
 fi
 
 ######### DEBUG ##########
-#cd "$ZANO_BUILD_DIR/release/src"
+#cd "$beezy_BUILD_DIR/release/src"
 #rm *.dmg
 #if false; then
 ##### end of DEBUG ######
 
-rm -rf $ZANO_BUILD_DIR; mkdir -p "$ZANO_BUILD_DIR/release"; cd "$ZANO_BUILD_DIR/release"
+rm -rf $beezy_BUILD_DIR; mkdir -p "$beezy_BUILD_DIR/release"; cd "$beezy_BUILD_DIR/release"
 
-cmake $testnet_def -D OPENSSL_ROOT_DIR=$OPENSSL_ROOT_DIR -D CMAKE_OSX_SYSROOT=$CMAKE_OSX_SYSROOT -D BUILD_GUI=TRUE -D CMAKE_PREFIX_PATH="$ZANO_QT_PATH/clang_64" -D CMAKE_BUILD_TYPE=Release -D BOOST_ROOT="$ZANO_BOOST_ROOT" -D BOOST_LIBRARYDIR="$ZANO_BOOST_LIBS_PATH" ../..
+cmake $testnet_def -D OPENSSL_ROOT_DIR=$OPENSSL_ROOT_DIR -D CMAKE_OSX_SYSROOT=$CMAKE_OSX_SYSROOT -D BUILD_GUI=TRUE -D CMAKE_PREFIX_PATH="$beezy_QT_PATH/clang_64" -D CMAKE_BUILD_TYPE=Release -D BOOST_ROOT="$beezy_BOOST_ROOT" -D BOOST_LIBRARYDIR="$beezy_BOOST_LIBS_PATH" ../..
 if [ $? -ne 0 ]; then
     echo "Failed to cmake"
     exit 1
@@ -39,9 +39,9 @@ fi
 
 
 
-make -j Zano
+make -j beezy
 if [ $? -ne 0 ]; then
-    echo "Failed to make Zano"
+    echo "Failed to make beezy"
     exit 1
 fi
 
@@ -59,63 +59,63 @@ if [ $? -ne 0 ]; then
 fi
 
 # copy all necessary libs into the bundle in order to workaround El Capitan's SIP restrictions
-mkdir -p Zano.app/Contents/Frameworks/boost_libs
-cp -R "$ZANO_BOOST_LIBS_PATH/" Zano.app/Contents/Frameworks/boost_libs/
+mkdir -p beezy.app/Contents/Frameworks/boost_libs
+cp -R "$beezy_BOOST_LIBS_PATH/" beezy.app/Contents/Frameworks/boost_libs/
 if [ $? -ne 0 ]; then
     echo "Failed to cp workaround to MacOS"
     exit 1
 fi
 
 # rename process name to big letter 
-mv Zano.app/Contents/MacOS/zano Zano.app/Contents/MacOS/Zano
+mv beezy.app/Contents/MacOS/beezy beezy.app/Contents/MacOS/beezy
 if [ $? -ne 0 ]; then
     echo "Failed to rename process"
     exit 1
 fi
 
-cp zanod simplewallet Zano.app/Contents/MacOS/
+cp beezyd simplewallet beezy.app/Contents/MacOS/
 if [ $? -ne 0 ]; then
-    echo "Failed to copy binaries to Zano.app folder"
+    echo "Failed to copy binaries to beezy.app folder"
     exit 1
 fi
 
 # fix boost libs paths in main executable and libs to workaround El Capitan's SIP restrictions
 source ../../../utils/macosx_fix_boost_libs_path.sh
-fix_boost_libs_in_binary @executable_path/../Frameworks/boost_libs Zano.app/Contents/MacOS/Zano
-fix_boost_libs_in_binary @executable_path/../Frameworks/boost_libs Zano.app/Contents/MacOS/simplewallet
-fix_boost_libs_in_binary @executable_path/../Frameworks/boost_libs Zano.app/Contents/MacOS/zanod
-fix_boost_libs_in_libs @executable_path/../Frameworks/boost_libs Zano.app/Contents/Frameworks/boost_libs
+fix_boost_libs_in_binary @executable_path/../Frameworks/boost_libs beezy.app/Contents/MacOS/beezy
+fix_boost_libs_in_binary @executable_path/../Frameworks/boost_libs beezy.app/Contents/MacOS/simplewallet
+fix_boost_libs_in_binary @executable_path/../Frameworks/boost_libs beezy.app/Contents/MacOS/beezyd
+fix_boost_libs_in_libs @executable_path/../Frameworks/boost_libs beezy.app/Contents/Frameworks/boost_libs
 
 
 
-"$ZANO_QT_PATH/clang_64/bin/macdeployqt" Zano.app
+"$beezy_QT_PATH/clang_64/bin/macdeployqt" beezy.app
 if [ $? -ne 0 ]; then
-    echo "Failed to macdeployqt Zano.app"
+    echo "Failed to macdeployqt beezy.app"
     exit 1
 fi
 
 
 
-rsync -a ../../../src/gui/qt-daemon/layout/html Zano.app/Contents/MacOS --exclude less --exclude package.json --exclude gulpfile.js
+rsync -a ../../../src/gui/qt-daemon/layout/html beezy.app/Contents/MacOS --exclude less --exclude package.json --exclude gulpfile.js
 if [ $? -ne 0 ]; then
     echo "Failed to cp html to MacOS"
     exit 1
 fi
 
-cp ../../../src/gui/qt-daemon/app.icns Zano.app/Contents/Resources
+cp ../../../src/gui/qt-daemon/app.icns beezy.app/Contents/Resources
 if [ $? -ne 0 ]; then
     echo "Failed to cp app.icns to resources"
     exit 1
 fi
 
-codesign -s "Developer ID Application: Zano Limited" --timestamp --options runtime -f --entitlements ../../../utils/macos_entitlements.plist --deep ./Zano.app
+codesign -s "Developer ID Application: beezy Limited" --timestamp --options runtime -f --entitlements ../../../utils/macos_entitlements.plist --deep ./beezy.app
 if [ $? -ne 0 ]; then
-    echo "Failed to sign Zano.app"
+    echo "Failed to sign beezy.app"
     exit 1
 fi
 
 
-read version_str <<< $(DYLD_LIBRARY_PATH=$ZANO_BOOST_LIBS_PATH ./connectivity_tool --version | awk '/^Zano/ { print $2 }')
+read version_str <<< $(DYLD_LIBRARY_PATH=$beezy_BOOST_LIBS_PATH ./connectivity_tool --version | awk '/^beezy/ { print $2 }')
 version_str=${version_str}
 echo $version_str
 
@@ -127,7 +127,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-mv Zano.app package_folder 
+mv beezy.app package_folder 
 if [ $? -ne 0 ]; then
     echo "Failed to top app package"
     exit 1
@@ -150,7 +150,7 @@ echo "############### Uploading... ################"
 
 package_filepath="$(pwd)/$package_filename"
 
-#scp $package_filepath zano_build_server:/var/www/html/builds/
+#scp $package_filepath beezy_build_server:/var/www/html/builds/
 source ../../../utils/macosx_build_uploader.sh
 pushd .
 upload_build $package_filepath
@@ -164,12 +164,12 @@ popd
 read checksum <<< $( shasum -a 256 $package_filepath | awk '/^/ { print $1 }' )
 
 mail_msg="New ${build_prefix_label}${testnet_label}build for macOS-x64:<br>
-<a href='https://build.zano.org/builds/$package_filename'>https://build.zano.org/builds/$package_filename</a><br>
+<a href='https://build.beezy.org/builds/$package_filename'>https://build.beezy.org/builds/$package_filename</a><br>
 sha256: $checksum"
 
 echo "$mail_msg"
 
-python3 ../../../utils/build_mail.py "Zano macOS-x64 ${build_prefix_label}${testnet_label}build $version_str" "${emails}" "$mail_msg"
+python3 ../../../utils/build_mail.py "beezy macOS-x64 ${build_prefix_label}${testnet_label}build $version_str" "${emails}" "$mail_msg"
 
 ######################
 # notarization
@@ -181,11 +181,11 @@ echo "Notarizing..."
 
 # creating archive for notarizing
 echo "Creating archive for notarizing"
-rm -f Zano.zip
-/usr/bin/ditto -c -k --keepParent ./Zano.app ./Zano.zip
+rm -f beezy.zip
+/usr/bin/ditto -c -k --keepParent ./beezy.app ./beezy.zip
 
 tmpfile="tmptmptmp"
-xcrun altool --notarize-app --primary-bundle-id "org.zano.desktop" -u "andrey@zano.org" -p "@keychain:Developer-altool" --file ./Zano.zip > $tmpfile 2>&1
+xcrun altool --notarize-app --primary-bundle-id "org.beezy.desktop" -u "andrey@beezy.org" -p "@keychain:Developer-altool" --file ./beezy.zip > $tmpfile 2>&1
 NOTARIZE_RES=$?
 NOTARIZE_OUTPUT=$( cat $tmpfile )
 rm $tmpfile
@@ -206,7 +206,7 @@ success=0
 
 # check notarization status
 for i in {1..10}; do
-    xcrun altool --notarization-info $GUID -u "andrey@zano.org" -p "@keychain:Developer-altool" > $tmpfile 2>&1
+    xcrun altool --notarization-info $GUID -u "andrey@beezy.org" -p "@keychain:Developer-altool" > $tmpfile 2>&1
     NOTARIZE_OUTPUT=$( cat $tmpfile )
     rm $tmpfile 
     NOTARIZATION_LOG_URL=$(echo "$NOTARIZE_OUTPUT" | sed -n "s/.*LogFileURL\: \([[:graph:]]*\).*/\1/p")

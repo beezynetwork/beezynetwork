@@ -31,7 +31,7 @@
  * into their equivalent byte representations for cross-compatibility with
  * that method of "backing up" one's wallet keys.
  */
-// Copyright (c) 2014-2018 Zano Project
+// Copyright (c) 2014-2018 beezy Project
 // Copyright (c) 2014-2018 The Louisdor Project
 
 

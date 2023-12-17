@@ -3,7 +3,7 @@ call configure_local_paths.cmd
 ;; MSVC version-specific paths
 SET QT_MSVC_PATH=%QT_PREFIX_PATH%\msvc2017_64
 
-SET ACHIVE_NAME_PREFIX=zano-win-x64-
+SET ACHIVE_NAME_PREFIX=beezy-win-x64-
 SET MY_PATH=%~dp0
 SET SOURCES_PATH=%MY_PATH:~0,-7%
 
@@ -68,7 +68,7 @@ IF %ERRORLEVEL% NEQ 0 (
   goto error
 )
 
-msbuild src/Zano.vcxproj /p:SubSystem="WINDOWS,5.02" /p:Configuration=Release /t:Build
+msbuild src/beezy.vcxproj /p:SubSystem="WINDOWS,5.02" /p:Configuration=Release /t:Build
 
 IF %ERRORLEVEL% NEQ 0 (
   goto error
@@ -96,8 +96,8 @@ del /F /Q %build_zip_path%
 
 cd src\release
 
-call :sign_file Zano.exe || goto error
-call :sign_file zanod.exe || goto error
+call :sign_file beezy.exe || goto error
+call :sign_file beezyd.exe || goto error
 call :sign_file simplewallet.exe || goto error
 
 @echo on
@@ -105,12 +105,12 @@ call :sign_file simplewallet.exe || goto error
 
 mkdir bunch
 
-copy /Y Zano.exe bunch
-copy /Y zanod.exe bunch
+copy /Y beezy.exe bunch
+copy /Y beezyd.exe bunch
 copy /Y simplewallet.exe bunch
 copy /Y *.pdb bunch
 
-%QT_MSVC_PATH%\bin\windeployqt.exe bunch\Zano.exe || goto error
+%QT_MSVC_PATH%\bin\windeployqt.exe bunch\beezy.exe || goto error
 
 cd bunch
 
@@ -176,25 +176,25 @@ call :sign_file %installer_path% || goto error
 
 @echo "   UPLOADING TO SERVER ...."
 
-pscp -load zano_build_server %installer_path% %ZANO_BUILDS_HOST%:/var/www/html/builds
+pscp -load beezy_build_server %installer_path% %beezy_BUILDS_HOST%:/var/www/html/builds
 IF %ERRORLEVEL% NEQ 0 (
   @echo "FAILED TO UPLOAD EXE TO SERVER"
   goto error
 )
 call :sha256 %installer_path% installer_checksum
 
-pscp -load zano_build_server %build_zip_path% %ZANO_BUILDS_HOST%:/var/www/html/builds
+pscp -load beezy_build_server %build_zip_path% %beezy_BUILDS_HOST%:/var/www/html/builds
 IF %ERRORLEVEL% NEQ 0 (
   @echo "FAILED TO UPLOAD ZIP TO SERVER"
   goto error
 )
 call :sha256 %build_zip_path% build_zip_checksum
 
-set mail_msg="New %build_prefix% %TESTNET_LABEL%build for win-x64:<br>INST: <a href='https://build.zano.org/builds/%installer_file%'>https://build.zano.org/builds/%installer_file%</a> <br>sha256: %installer_checksum%<br><br>ZIP:  <a href='https://build.zano.org/builds/%build_zip_filename%'>https://build.zano.org/builds/%build_zip_filename%</a> <br>sha256: %build_zip_checksum%<br>"
+set mail_msg="New %build_prefix% %TESTNET_LABEL%build for win-x64:<br>INST: <a href='https://build.beezy.org/builds/%installer_file%'>https://build.beezy.org/builds/%installer_file%</a> <br>sha256: %installer_checksum%<br><br>ZIP:  <a href='https://build.beezy.org/builds/%build_zip_filename%'>https://build.beezy.org/builds/%build_zip_filename%</a> <br>sha256: %build_zip_checksum%<br>"
 
 echo %mail_msg%
 
-python ../utils/build_mail.py "Zano win-x64 %build_prefix% %TESTNET_LABEL%build %version%" "%emails%" %mail_msg%
+python ../utils/build_mail.py "beezy win-x64 %build_prefix% %TESTNET_LABEL%build %version%" "%emails%" %mail_msg%
 
 goto success
 
@@ -228,7 +228,7 @@ EXIT /B %ERRORLEVEL%
 
 :sign_file
 @echo Signing %1...
-@call %ZANO_SIGN_CMD% %1
+@call %beezy_SIGN_CMD% %1
 @if %ERRORLEVEL% neq 0 (
   @echo ERROR: failed to sign %1
   @exit /B 1

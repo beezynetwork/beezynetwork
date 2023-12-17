@@ -1,12 +1,12 @@
 [Desktop Entry]
 Version=1.0
-Name=Zano
-GenericName=Zano
+Name=beezy
+GenericName=beezy
 Comment=Privacy blockchain
-Icon=Zano
+Icon=beezy
 Terminal=true
 Type=Application
 Categories=Qt;Utility;
-Name[en_US]=Zano
-MimeType=x-scheme-handler/zano;
+Name[en_US]=beezy
+MimeType=x-scheme-handler/beezy;
 

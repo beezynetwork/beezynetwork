@@ -1,6 +1,6 @@
 // Copyright (c) 2011-2013 The Bitcoin Core developers
 // Copyright (c) 2015 Boolberry developers
-// Copyright (c) 2014-2018 Zano Project
+// Copyright (c) 2014-2018 beezy Project
 // Copyright (c) 2014-2018 The Louisdor Project
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -29,7 +29,7 @@
 #include <stdint.h>
 #include <math.h>
 #include "currency_core/currency_config.h"
-#define GUI_LINK_NAME "Zano"
+#define GUI_LINK_NAME "beezy"
 
 #ifdef WIN32
 #ifdef _WIN32_WINNT

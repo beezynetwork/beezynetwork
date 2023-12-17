@@ -14,4 +14,4 @@ EOM
 esac
 
 printf "pos_block_ts_shift_vs_actual.value "
-connectivity_tool --ip=127.0.0.1 --rpc-port=$ZANO_RPC_PORT --timeout=1000 --rpc-get-daemon-info --getinfo-flags-hex="0x0000000000020000" | grep pos_block_ts_shift_vs_actual | cut -d ' ' -f2
+connectivity_tool --ip=127.0.0.1 --rpc-port=$beezy_RPC_PORT --timeout=1000 --rpc-get-daemon-info --getinfo-flags-hex="0x0000000000020000" | grep pos_block_ts_shift_vs_actual | cut -d ' ' -f2

@@ -13,6 +13,6 @@ EOM
 esac
 
 printf "db_tx_count.value "
-connectivity_tool --ip=127.0.0.1 --rpc-port=$ZANO_RPC_PORT --timeout=1000 --rpc-get-daemon-info --getinfo-flags-hex="0x0000000000010000" | grep db_tx_count | cut -d ' ' -f2
+connectivity_tool --ip=127.0.0.1 --rpc-port=$beezy_RPC_PORT --timeout=1000 --rpc-get-daemon-info --getinfo-flags-hex="0x0000000000010000" | grep db_tx_count | cut -d ' ' -f2
 printf "writer_tx_count.value "
-connectivity_tool --ip=127.0.0.1 --rpc-port=$ZANO_RPC_PORT --timeout=1000 --rpc-get-daemon-info --getinfo-flags-hex="0x0000000000010000" | grep db_writer_tx_count| cut -d ' ' -f2
+connectivity_tool --ip=127.0.0.1 --rpc-port=$beezy_RPC_PORT --timeout=1000 --rpc-get-daemon-info --getinfo-flags-hex="0x0000000000010000" | grep db_writer_tx_count| cut -d ' ' -f2

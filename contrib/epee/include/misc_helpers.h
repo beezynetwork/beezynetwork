@@ -1,4 +1,5 @@
-// Copyright (c) 2019, Zano Project
+// Copyright (c) 2023, beezy Project
+// Copyright (c) 2019, zano Project
 // Copyright (c) 2006-2019, Andrey N. Sabelnikov, www.sabelnikov.net
 // All rights reserved.
 //

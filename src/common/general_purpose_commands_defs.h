@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018 Zano Project
+// Copyright (c) 2014-2018 beezy Project
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -16,11 +16,11 @@ namespace currency
   struct tx_cost_struct
   {
     std::string usd_needed_for_erc20;
-    std::string zano_needed_for_erc20;
+    std::string beezy_needed_for_erc20;
 
     BEGIN_KV_SERIALIZE_MAP()
       KV_SERIALIZE(usd_needed_for_erc20)
-      KV_SERIALIZE(zano_needed_for_erc20)
+      KV_SERIALIZE(beezy_needed_for_erc20)
     END_KV_SERIALIZE_MAP()
   };
 

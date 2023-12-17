@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019 Zano Project
+// Copyright (c) 2014-2019 beezy Project
 // Copyright (c) 2014-2018 The Louisdor Project
 // Copyright (c) 2012-2013 The Cryptonote developers
 // Distributed under the MIT/X11 software license, see the accompanying
@@ -168,9 +168,9 @@
 
 
 
-#define CURRENCY_NAME_ABR                               "ZANO"
-#define CURRENCY_NAME_BASE                              "Zano"
-#define CURRENCY_NAME_SHORT_BASE                        "Zano"
+#define CURRENCY_NAME_ABR                               "beezy"
+#define CURRENCY_NAME_BASE                              "beezy"
+#define CURRENCY_NAME_SHORT_BASE                        "beezy"
 #ifndef TESTNET
 #define CURRENCY_NAME                                   CURRENCY_NAME_BASE
 #define CURRENCY_NAME_SHORT                             CURRENCY_NAME_SHORT_BASE
@@ -239,13 +239,13 @@
 #define BLOCK_MINOR_VERSION_GENESIS                     0
 #define BLOCK_MAJOR_VERSION_INITIAL                     0
 #ifndef TESTNET
-#define ZANO_HARDFORK_01_AFTER_HEIGHT                   194624
-#define ZANO_HARDFORK_02_AFTER_HEIGHT                   999999
-#define ZANO_HARDFORK_03_AFTER_HEIGHT                   1082577
+#define beezy_HARDFORK_01_AFTER_HEIGHT                   194624
+#define beezy_HARDFORK_02_AFTER_HEIGHT                   999999
+#define beezy_HARDFORK_03_AFTER_HEIGHT                   1082577
 #else
-#define ZANO_HARDFORK_01_AFTER_HEIGHT                   1440
-#define ZANO_HARDFORK_02_AFTER_HEIGHT                   1800
-#define ZANO_HARDFORK_03_AFTER_HEIGHT                   1801
+#define beezy_HARDFORK_01_AFTER_HEIGHT                   1440
+#define beezy_HARDFORK_02_AFTER_HEIGHT                   1800
+#define beezy_HARDFORK_03_AFTER_HEIGHT                   1801
 #endif
 
 

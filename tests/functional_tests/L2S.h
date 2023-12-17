@@ -1,6 +1,6 @@
-// Copyright (c) 2020-2021 Zano Project (https://zano.org/)
+// Copyright (c) 2020-2021 beezy Project (https://beezy.org/)
 // Copyright (c) 2020-2021 Locksmith (acmxddk@gmail.com)
-// Copyright (c) 2020-2021 sowle (val@zano.org, crypto.sowle@gmail.com)
+// Copyright (c) 2020-2021 sowle (val@beezy.org, crypto.sowle@gmail.com)
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 #pragma once

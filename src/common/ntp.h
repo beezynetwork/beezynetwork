@@ -1,4 +1,4 @@
-// Copyright (c) 2019 Zano Project
+// Copyright (c) 2019 beezy Project
 
 #pragma once
 #include <cstdint>
