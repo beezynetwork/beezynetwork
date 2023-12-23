@@ -11,6 +11,10 @@
 #include "ethereum/libethash/ethash/ethash.h"
 #include "ethereum/libethash/ethash/keccak.h"
 #include "currency_core/currency_format_utils.h"
+#include <boost/serialization/version.hpp>
+#if BOOST_VERSION / 100000 == 1 && BOOST_VERSION / 100 % 1000 == 74
+#include <boost/serialization/library_version_type.hpp>
+#endif
 
 namespace stratum
 {
