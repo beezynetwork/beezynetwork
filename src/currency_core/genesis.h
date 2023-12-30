@@ -1,5 +1,5 @@
-// Copyright (c) 2014-2018 beezy Project
-// Copyright (c) 2014-2018 beezy Project
+// Copyright (c) 2014-2018 Chinet Project
+// Copyright (c) 2014-2018 Chinet Project
 // Copyright (c) 2014-2018 The Louisdor Project
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -12,15 +12,15 @@ namespace currency
 #ifndef TESTNET
   struct genesis_tx_raw_data
   {
-    uint64_t const v[161];
-    uint8_t const r[7];
+    uint64_t const v[15];
+    uint8_t const r[6];
   };
 
 #else
   struct genesis_tx_raw_data 
   {
-    uint64_t const v[42];
-    uint8_t const r[2];
+    uint64_t const v[15];
+    uint8_t const r[6];
   };
 #endif
 #pragma pack(pop)
