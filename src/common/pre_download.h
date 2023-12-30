@@ -21,8 +21,10 @@ namespace tools
   };
 
 #ifndef TESTNET
-  static constexpr pre_download_entry c_pre_download_mdbx = { "http://95.217.42.247/pre-download/beezy_mdbx_95_2200000.pak", "c3bd64c62495c3f266759750952519f13f32fc161b59547beaa8202b6e26d516", 2628767033, 5100195840 };
-  static constexpr pre_download_entry c_pre_download_lmdb = { "http://95.217.42.247/pre-download/beezy_lmdb_95_2200000.pak", "fcbf0ab3b23836e1a51fa675e719900fb94110cfb74790b3323cebce7fb9f5bd", 3426025872, 4954472448 };
+  //static constexpr pre_download_entry c_pre_download_mdbx = { "http://95.217.42.247/pre-download/beezy_mdbx_95_2200000.pak", "c3bd64c62495c3f266759750952519f13f32fc161b59547beaa8202b6e26d516", 2628767033, 5100195840 };
+  //static constexpr pre_download_entry c_pre_download_lmdb = { "http://95.217.42.247/pre-download/beezy_lmdb_95_2200000.pak", "fcbf0ab3b23836e1a51fa675e719900fb94110cfb74790b3323cebce7fb9f5bd", 3426025872, 4954472448 };
+  static constexpr pre_download_entry c_pre_download_mdbx = { "", "", 0, 0 };
+  static constexpr pre_download_entry c_pre_download_lmdb = { "", "", 0, 0 };
 #else
   static constexpr pre_download_entry c_pre_download_mdbx = { "", "", 0, 0 };
   static constexpr pre_download_entry c_pre_download_lmdb = { "", "", 0, 0 };
